@@ -1,0 +1,78 @@
+<!-- src/app/components/bon-commande-form/bon-commande-form.component.html -->
+<form [formGroup]="bonForm" (ngSubmit)="onSubmit()" class="card shadow-sm p-4 mb-4">
+  <h4>
+    <i class="fas fa-motorcycle me-2 text-primary"></i>
+    {{ bonCommande ? 'Modifier une commande' : 'Nouvelle commande' }}
+  </h4>
+
+  <!-- === Sélect ID Client === -->
+  <div class="mb-3">
+    <label for="id_client" class="form-label">Client</label>
+    <select id="id_client" formControlName="id_client" class="form-select" [disabled]="!!bonCommande">
+      <option value="" disabled selected>-- Sélectionnez un client --</option>
+      <option *ngFor="let cl of clients$ | async" [ngValue]="cl.id_client">
+        {{ cl.id_client }} – {{ cl.nom }} {{ cl.prenom }}
+      </option>
+    </select>
+  </div>
+
+  <!-- === Sélect Réf Scooter === -->
+  <div class="mb-3">
+    <label for="ref_scooter" class="form-label">Scooter</label>
+    <select id="ref_scooter" formControlName="ref_scooter" class="form-select" [disabled]="!!bonCommande">
+      <option value="" disabled selected>-- Sélectionnez un scooter --</option>
+      <option *ngFor="let sc of scooters$ | async" [ngValue]="sc.ref_scooter">
+        {{ sc.ref_scooter }} – {{ sc.marque }} {{ sc.modele }}
+      </option>
+    </select>
+  </div>
+
+  <!-- === Prix Unitaire (automatique, non éditable) === -->
+  <div class="mb-3">
+    <label for="prix_unitaire" class="form-label">Prix unitaire (EUR)</label>
+    <input id="prix_unitaire" type="number" formControlName="prix_unitaire" class="form-control" [disabled]="true" />
+  </div>
+
+  <!-- === Quantité === -->
+  <div class="mb-3">
+    <label for="quantite_cmd" class="form-label">Quantité</label>
+    <input id="quantite_cmd" type="number" formControlName="quantite_cmd" class="form-control" min="1" />
+  </div>
+
+  <!-- === Date Commande === -->
+  <div class="mb-3">
+    <label for="date_cmd" class="form-label">Date de commande</label>
+    <input id="date_cmd" type="date" formControlName="date_cmd" class="form-control" />
+  </div>
+
+  <!-- === Remise === -->
+  <div class="mb-3">
+    <label for="remise" class="form-label">Remise (EUR)</label>
+    <input id="remise" type="number" formControlName="remise" class="form-control" step="0.01" min="0" />
+  </div>
+
+  <hr />
+
+  <!-- === Totaux calculés automatiquement === -->
+  <div class="row mb-3">
+    <div class="col">
+      <label for="total_ht" class="form-label">Total HT (EUR)</label>
+      <input id="total_ht" type="number" formControlName="total_ht" class="form-control" [disabled]="true" />
+    </div>
+    <div class="col">
+      <label for="tva" class="form-label">TVA (20%)</label>
+      <input id="tva" type="number" formControlName="tva" class="form-control" [disabled]="true" />
+    </div>
+    <div class="col">
+      <label for="total_ttc" class="form-label">Total TTC (EUR)</label>
+      <input id="total_ttc" type="number" formControlName="total_ttc" class="form-control" [disabled]="true" />
+    </div>
+  </div>
+
+  <div class="mt-4 text-end">
+    <button type="submit" class="btn btn-outline-primary" [disabled]="bonForm.invalid">
+      <i class="fas fa-save me-1"></i>
+      {{ bonCommande ? 'Enregistrer' : 'Créer la commande' }}
+    </button>
+  </div>
+</form>

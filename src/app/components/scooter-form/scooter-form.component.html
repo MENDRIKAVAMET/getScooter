@@ -1,0 +1,41 @@
+<form [formGroup]="scooterForm" (ngSubmit)="onSubmit()" class="card shadow-sm p-4 mb-4">
+  <h4 class="mb-3">
+    <i class="fas fa-motorcycle me-2 text-primary"></i>
+    {{ scooter ? 'Modifier le scooter' : 'Ajouter un scooter' }}
+  </h4>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label for="ref_scooter" class="form-label">Référence</label>
+      <input id="ref_scooter" formControlName="ref_scooter" class="form-control" placeholder="Ref scooter" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="marque" class="form-label">Marque</label>
+      <input id="marque" formControlName="marque" class="form-control" placeholder="Marque" />
+    </div>
+
+    <div class="col-md-6">
+      <label for="modele" class="form-label">Modèle</label>
+      <input id="modele" formControlName="modele" class="form-control" placeholder="Modèle" />
+    </div>
+
+    <div class="col-md-3">
+      <label for="prix" class="form-label">Prix (€)</label>
+      <input id="prix" type="number" formControlName="prix" class="form-control" placeholder="Prix" />
+    </div>
+
+    <div class="col-md-3">
+      <label for="quantite_stock" class="form-label">Quantité</label>
+      <input id="quantite_stock" type="number" formControlName="quantite_stock" class="form-control"
+        placeholder="Quantité" />
+    </div>
+  </div>
+
+  <div class="mt-4 text-end">
+    <button type="submit" class="btn btn-outline-primary">
+      <i class="fas fa-save me-1"></i>
+      {{ scooter ? 'Modifier' : 'Ajouter' }}
+    </button>
+  </div>
+</form>

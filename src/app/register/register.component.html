@@ -1,0 +1,24 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+    <h2>Connexion</h2>
+
+    <div class="form-group">
+      <label for="username">Nom d’utilisateur</label>
+      <input id="username" formControlName="username" />
+      <div class="error" *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
+        Le nom d’utilisateur est requis.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="mdp">Mot de passe</label>
+      <input id="plainPassword" type="password" formControlName="plainPassword" />
+      <div class="error" *ngIf="registerForm.get('plainPassword')?.touched && registerForm.get('plainPassword')?.invalid">
+        Le mot de passe est requis.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+    <p>Déjà insrit ?
+      <a routerLink="/login">Se connecter</a>
+    </p>
+  </form>

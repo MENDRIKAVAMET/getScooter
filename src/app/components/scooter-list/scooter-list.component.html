@@ -1,0 +1,52 @@
+<!-- Formulaire de création/édition -->
+<div class="component-container">
+  <div class="form-wrapper transition" [class.open]="showForm">
+    <app-scooter-form [scooter]="selectedScooter" (saved)="onScooterSaved()"></app-scooter-form>
+  </div>
+
+
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h2 class="mb-0" style="color: white;">
+      Liste des scooters
+    </h2>
+
+    <button class="btn btn-success" (click)="toggleForm()">
+      <i class="fas fa-plus-circle me-1"></i> {{ showForm ? 'Fermer' : 'Ajouter un scooter' }}
+    </button>
+  </div>
+
+
+  <table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th>Réf</th>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>Prix</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sc of scooters">
+        <td>{{ sc.ref_scooter }}</td>
+        <td>{{ sc.marque }}</td>
+        <td>{{ sc.modele }}</td>
+        <td>{{ sc.prix | number:'1.2-2' }} €</td>
+        <td>
+          <span [class]="sc.quantite_stock > 0 ? 'text-success' : 'text-danger'">
+            {{ sc.quantite_stock }}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="editScooter(sc)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteScooter(sc.ref_scooter)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

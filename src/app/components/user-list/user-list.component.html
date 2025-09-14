@@ -1,0 +1,33 @@
+<div class="container mt-3">
+
+    <!-- Formulaire au-dessus -->
+    <app-user-form [user]="selectedUser" (saved)="onSaved()"></app-user-form>
+
+    <hr />
+
+    <h4>Liste des utilisateurs</h4>
+    <table class="table table-striped">
+        <thead class="table-secondary">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary me-2" (click)="editUser(user)">
+                        Modifier
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">
+                        Supprimer
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

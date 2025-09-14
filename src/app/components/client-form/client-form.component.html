@@ -1,0 +1,49 @@
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="card shadow-sm p-4 mb-4">
+    <h4 class="mb-3">
+        <i class="fas fa-motorcycle me-2 text-primary"></i>
+        {{ client ? 'Modifier le client' : 'Ajouter un client' }}
+    </h4>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" formControlName="nom" placeholder="Nom" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" formControlName="prenom" placeholder="Prénom" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label for="phone" class="form-label">Téléphone</label>
+            <input type="text" formControlName="phone" placeholder="Téléphone" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label for="cin" class="form-label">CIN</label>
+            <input type="text" formControlName="cin" placeholder="CIN" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label for="pays" class="form-label">Pays</label>
+            <input type="text" formControlName="pays" placeholder="Pays" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label for="ville" class="form-label"></label>
+            <input type="text" formControlName="ville" placeholder="Ville" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+            <label for="date_naiss" class="form-label">Date de naissance</label>
+            <input type="date" formControlName="date_naiss" placeholder="Date de naissance" class="form-control mb-2" />
+        </div>
+    </div>
+
+    <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-outline-primary">
+            <i class="fas fa-ssave me-1"></i>
+            {{ client ? 'Modifier' : 'Ajouter'}}
+        </button>
+    </div>
+</form>

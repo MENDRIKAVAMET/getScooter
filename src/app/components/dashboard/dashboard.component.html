@@ -1,0 +1,56 @@
+<div class="dashboard-container">
+    <!-- ——— Cartes de résumé ——— -->
+    <div class="cards">
+        <div class="card">
+            <div class="card-value">{{ totalClients }}</div>
+            <div class="card-label">Clients</div>
+        </div>
+        <div class="card">
+            <div class="card-value">{{ totalScooters }}</div>
+            <div class="card-label">Scooters</div>
+        </div>
+        <div class="card">
+            <div class="card-value">{{ totalCommandes }}</div>
+            <div class="card-label">Commandes</div>
+        </div>
+    </div>
+
+    <!-- ——— Mini graphique en barres (un pour chaque mois) ——— -->
+    <div class="graph">
+        <h3>Commandes par mois</h3>
+        <div class="bars">
+            <div class="bar" *ngFor="let v of stats; let i = index" [style.height.px]="v * 4"
+                [attr.title]="'Mois ' + (i+1) + ': ' + v +' commande(s)'"></div>
+        </div>
+        <div class="months">
+            <span *ngFor="let m of stats; let i = index">{{ i + 1 }}</span>
+        </div>
+    </div>
+
+    <!-- ——— Tableau des dernières commandes ——— -->
+    <div class="table-section">
+        <h3>Dernières commandes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Total TTC</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let commande of commandesRecentes">
+                    <td>{{ commande.client?.prenom || 'Inconnu' }}</td>
+                    <td>{{ commande.total_ttc }} Ar</td>
+                    <td>
+                        {{
+                        commande.contenirs && commande.contenirs.length > 0
+                        ? (commande.contenirs[0].date_cmd | date: 'shortDate')
+                        : '—'
+                        }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

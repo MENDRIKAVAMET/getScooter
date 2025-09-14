@@ -1,0 +1,51 @@
+<div class="component-container">
+  <div class="form-wrapper transition" [class.open]="showForm">
+    <app-client-form [client]="selectedClient" (saved)="onClientSaved()"></app-client-form>
+  </div>
+  .
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h2 class="mb-0" style="color: white;">
+      Liste des clients
+    </h2>
+    <button class="btn btn-success" (click)="toggleForm()">
+      <i class="fa fa-plus-circle me-1"></i>
+      {{ showForm ? 'Fermer' : 'Ajouter un client' }}
+    </button>
+  </div>
+
+  <table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Phone</th>
+        <th>CIN</th>
+        <th>Pays</th>
+        <th>Ville</th>
+        <th>Date de naissance</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.id_client }}</td>
+        <td>{{ client.nom }}</td>
+        <td>{{ client.prenom }}</td>
+        <td>{{ client.phone }}</td>
+        <td>{{ client.cin }}</td>
+        <td>{{ client.pays }}</td>
+        <td>{{ client.ville }}</td>
+        <td>{{ client.date_naiss }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="editClient(client)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteClient(client.id_client!)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

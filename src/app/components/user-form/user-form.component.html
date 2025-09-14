@@ -1,0 +1,41 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="mb-4 p-3 border rounded">
+    <h4>{{ user ? 'Modifier un utilisateur' : 'Nouvel utilisateur' }}</h4>
+  
+    <!-- Username -->
+    <div class="mb-3">
+      <label for="username" class="form-label">Nom d’utilisateur</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        class="form-control"
+        placeholder="Entrez un nom d’utilisateur"
+      />
+      <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" class="text-danger">
+        <small *ngIf="userForm.get('username')?.errors?.['required']">Le nom d’utilisateur est requis.</small>
+        <small *ngIf="userForm.get('username')?.errors?.['minlength']">Au moins 3 caractères.</small>
+      </div>
+    </div>
+  
+    <!-- Mot de passe -->
+    <div class="mb-3">
+      <label for="mdp" class="form-label">{{ user ? 'Nouveau mot de passe (laisser vide pour ne pas changer)' : 'Mot de passe' }}</label>
+      <input
+        id="mdp"
+        type="password"
+        formControlName="mdp"
+        class="form-control"
+        placeholder="Entrez un mot de passe"
+        [attr.required]="!user ? true : null"
+      />
+      <div *ngIf="userForm.get('mdp')?.invalid && userForm.get('mdp')?.touched" class="text-danger">
+        <small *ngIf="userForm.get('mdp')?.errors?.['required']">Le mot de passe est requis.</small>
+        <small *ngIf="userForm.get('mdp')?.errors?.['minlength']">Au moins 6 caractères.</small>
+      </div>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+      {{ user ? 'Enregistrer' : 'Créer' }}
+    </button>
+  </form>
+  
