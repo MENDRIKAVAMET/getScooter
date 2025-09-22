@@ -1,56 +1,152 @@
-<div class="dashboard-container">
+<div class="dashboard-container container-fluid py-4 dark-theme">
     <!-- ——— Cartes de résumé ——— -->
-    <div class="cards">
-        <div class="card">
-            <div class="card-value">{{ totalClients }}</div>
-            <div class="card-label">Clients</div>
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card summary-card shadow-sm border-0 h-100">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon-wrapper mb-3">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-value display-4 fw-bold">{{ totalClients }}</div>
+                    <div class="card-label fs-5">Clients</div>
+                </div>
+            </div>
         </div>
-        <div class="card">
-            <div class="card-value">{{ totalScooters }}</div>
-            <div class="card-label">Scooters</div>
+        <div class="col-md-4 mb-3">
+            <div class="card summary-card shadow-sm border-0 h-100">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon-wrapper mb-3">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <div class="card-value display-4 fw-bold">{{ totalScooters }}</div>
+                    <div class="card-label fs-5">Scooters</div>
+                </div>
+            </div>
         </div>
-        <div class="card">
-            <div class="card-value">{{ totalCommandes }}</div>
-            <div class="card-label">Commandes</div>
+        <div class="col-md-4 mb-3">
+            <div class="card summary-card shadow-sm border-0 h-100">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon-wrapper mb-3">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="card-value display-4 fw-bold">{{ totalCommandes }}</div>
+                    <div class="card-label fs-5">Commandes</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- ——— Mini graphique en barres (un pour chaque mois) ——— -->
-    <div class="graph">
-        <h3>Commandes par mois</h3>
-        <div class="bars">
-            <div class="bar" *ngFor="let v of stats; let i = index" [style.height.px]="v * 4"
-                [attr.title]="'Mois ' + (i+1) + ': ' + v +' commande(s)'"></div>
-        </div>
-        <div class="months">
-            <span *ngFor="let m of stats; let i = index">{{ i + 1 }}</span>
+    <!-- ——— Graphique professionnel ——— -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 dark-card">
+                <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-chart-line me-2 green-icon"></i>Commandes par mois
+                    </h3>
+                    <div class="chart-actions">
+                        <button class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-download green-icon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div class="chart-legend d-flex justify-content-center mb-3 flex-wrap">
+                            <div class="legend-item me-3">
+                                <span class="legend-color" style="background-color: #2ecc71;"></span>
+                                <span class="legend-label">Commandes {{ currentYear }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Message si pas de données -->
+                        <div *ngIf="!stats || stats.length === 0" class="text-center py-4">
+                            <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Aucune donnée disponible pour le graphique</p>
+                        </div>
+
+                        <div class="professional-bars" *ngIf="stats && stats.length > 0">
+                            <div class="bars-grid">
+                                <div class="grid-line" *ngFor="let tick of yAxisTicks; let i = index"></div>
+                            </div>
+
+                            <div class="bars-container">
+                                <div class="bar-item" *ngFor="let v of stats; let i = index">
+                                    <div class="bar-value" *ngIf="v > 0">{{v}}</div>
+                                    <div class="bar-wrapper">
+                                        <div class="bar" [style.height]="(v / maxValue) * 100 + '%'"
+                                            [attr.title]="'Mois ' + (i+1) + ': ' + v +' commande(s)'">
+                                            <div class="bar-fill"></div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-label">{{ getMonthName(i) }}</div>
+                                </div>
+                            </div>
+
+                            <div class="y-axis">
+                                <span *ngFor="let tick of yAxisTicks">{{ tick }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- ——— Tableau des dernières commandes ——— -->
-    <div class="table-section">
-        <h3>Dernières commandes</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Client</th>
-                    <th>Total TTC</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let commande of commandesRecentes">
-                    <td>{{ commande.client?.prenom || 'Inconnu' }}</td>
-                    <td>{{ commande.total_ttc }} Ar</td>
-                    <td>
-                        {{
-                        commande.contenirs && commande.contenirs.length > 0
-                        ? (commande.contenirs[0].date_cmd | date: 'shortDate')
-                        : '—'
-                        }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 dark-card">
+                <div class="card-header bg-transparent border-0">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-history me-2 green-icon"></i>Dernières commandes
+                    </h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 dark-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-user me-1 green-icon"></i> Client</th>
+                                    <th><i class="fas fa-money-bill-wave me-1 green-icon"></i> Total TTC</th>
+                                    <th><i class="fas fa-calendar me-1 green-icon"></i> Date</th>
+                                    <th class="text-center"><i class="fas fa-cog me-1 green-icon"></i> Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let commande of commandesRecentes">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="customer-avatar">
+                                                <i class="fas fa-user-circle green-icon"></i>
+                                            </div>
+                                            <div class="ms-2">
+                                                <span class="text-success">{{ commande.client?.prenom || 'Inconnu' }}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-success">{{ commande.total_ttc }} Ar</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-calendar-day me-2 green-icon"></i>
+                                            <span class="text-success">{{
+                                            commande.contenirs && commande.contenirs.length > 0
+                                            ? (commande.contenirs[0].date_cmd | date: 'shortDate')
+                                            : '—'
+                                            }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-outline-success" routerLink="/commandes">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

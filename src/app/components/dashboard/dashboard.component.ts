@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ClientService } from '../../services/client.service';
 import { ScooterService } from '../../services/scooter.service';
 import { BonCommandeService, BonCommande } from '../../services/bon-commande.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -12,6 +13,7 @@ import { BonCommandeService, BonCommande } from '../../services/bon-commande.ser
   styleUrls: ['./dashboard.component.css'],
   imports: [
     CommonModule,
+    RouterModule,
     // ajoute ici d'autres composants standalone nécessaires, ex. ChartComponent
   ],
 })
@@ -26,6 +28,8 @@ export class DashboardComponent implements OnInit {
   // Dernières commandes pour l’affichage
   commandesRecentes: BonCommande[] = [];
 
+  currentYear = new Date().getFullYear();
+
   constructor(
     private clientService: ClientService,
     private scooterService: ScooterService,
@@ -37,6 +41,24 @@ export class DashboardComponent implements OnInit {
     this.chargerStatsScooters();
     this.chargerStatsCommandes();
     this.chargerCommandesRecentes();
+  }
+
+  getMonthName(index: number): string {
+    const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+    return months[index] || (index + 1).toString();
+  }
+
+  get maxValue():number {
+    return Math.max(...this.stats, 10);
+  }
+
+  get yAxisTicks(): number[] {
+    const ticks = [];
+    const step = Math.ceil(this.maxValue / 5);
+    for(let i = 0; i<=5; i++){
+      ticks.push(i * step);
+    }
+    return ticks;
   }
 
   private chargerStatsClients(): void {

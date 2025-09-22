@@ -46,12 +46,20 @@
           </ul>
         </td>
         <td>
-          <button class="btn btn-sm btn-outline-primary me-2" (click)="editBon(bon)">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="btn btn-sm btn-outline-danger" (click)="deleteBon(bon.id_bon!)">
-            <i class="fas fa-trash-alt"></i>
-          </button>
+          <div class="d-flex flex-wrap gap-1">
+            <button class="btn btn-sm btn-outline-primary me-1" (click)="editBon(bon)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-info me-1" (click)="printBon(bon)">
+              <i class="fas fa-print"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-success me-1" (click)="downloadBon(bon)">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteBon(bon.id_bon!)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>

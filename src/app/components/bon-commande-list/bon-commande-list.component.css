@@ -1,0 +1,47 @@
+/* Style pour les boutons d'action */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Espacement entre les boutons */
+.gap-1 {
+  gap: 0.25rem;
+}
+
+/* Style spécifique pour les boutons d'impression et téléchargement */
+.btn-outline-info {
+  color: #0dcaf0;
+  border-color: #0dcaf0;
+}
+
+.btn-outline-info:hover {
+  color: #000;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+}
+
+.btn-outline-success {
+  color: #198754;
+  border-color: #198754;
+}
+
+.btn-outline-success:hover {
+  color: #fff;
+  background-color: #198754;
+  border-color: #198754;
+}
+
+/* Responsive pour les boutons d'action */
+@media (max-width: 768px) {
+  .d-flex.flex-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-sm {
+    margin-bottom: 0.25rem;
+    width: 100%;
+    text-align: center;
+  }
+}
