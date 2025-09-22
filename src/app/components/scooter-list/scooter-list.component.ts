@@ -40,6 +40,7 @@ export class ScooterListComponent implements OnInit {
 
   editScooter(scooter: Scooter): void {
     this.selectedScooter = { ...scooter }; // on clone l’objet pour l’édition
+    this.toggleForm();
   }
 
   deleteScooter(ref: string): void {

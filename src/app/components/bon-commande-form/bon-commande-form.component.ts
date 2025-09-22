@@ -108,7 +108,7 @@ export class BonCommandeFormComponent implements OnInit, OnChanges {
         // ► Mode édition : pré-remplir champs
         this.bonForm.patchValue({
           id_client: this.bonCommande.id_client,
-          // On n’édite pas ref_scooter ou quantite dans ce composant, 
+          // On n’édite pas ref_scooter ou quantite dans ce composant,
           // mais si on veut le remplir, on peut :
           ref_scooter: this.bonCommande.contenirs?.[0]?.ref_scooter || null,
           quantite_cmd: this.bonCommande.contenirs?.[0]?.quantite_cmd || 1,
@@ -221,7 +221,7 @@ export class BonCommandeFormComponent implements OnInit, OnChanges {
               total_prix: parseFloat(formValue.total_ht)
             }
           ).subscribe({
-            next: () => { alert('Commande modifiée'); this.saved.emit(); },
+            next: () => { alert('Commande modifiée'); this.saved.emit(); this.bonForm.reset(); },
             error: err => console.error('Erreur update ligne', err)
           });
         },
@@ -245,6 +245,7 @@ export class BonCommandeFormComponent implements OnInit, OnChanges {
             tva: 20,
             total_ttc: 0
           });
+          this.bonForm.reset();
         },
         error: (err) => {
           console.error('Erreur create : ', err);
@@ -253,4 +254,4 @@ export class BonCommandeFormComponent implements OnInit, OnChanges {
       });
     }
   }
-} 
+}

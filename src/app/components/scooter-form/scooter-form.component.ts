@@ -59,12 +59,13 @@ export class ScooterFormComponent implements OnChanges {
     if (this.scooterForm.invalid) return;
 
     // On lit les valeurs (réactives), on reconstruit l’objet
-    const formValue = this.scooterForm.getRawValue() as Scooter; 
+    const formValue = this.scooterForm.getRawValue() as Scooter;
     if (this.scooter) {
       // Mode édition
       this.scooterService.update(formValue).subscribe({
         next: () => {
           this.saved.emit();
+          this.scooterForm.reset();
         },
         error: (err) => console.error(err)
       });
@@ -73,6 +74,7 @@ export class ScooterFormComponent implements OnChanges {
       this.scooterService.create(formValue).subscribe({
         next: () => {
           this.saved.emit();
+          this.scooterForm.reset();
         },
         error: (err) => console.error(err)
       });

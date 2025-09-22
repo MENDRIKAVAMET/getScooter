@@ -1,5 +1,5 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
-    <h2>Connexion</h2>
+    <h2>Inscription</h2>
 
     <div class="form-group">
       <label for="username">Nom d’utilisateur</label>
@@ -17,8 +17,16 @@
       </div>
     </div>
 
+    <div claass="form-group">
+      <label for="confirmPassword">Confirmer le mot de passe</label>
+      <input id="confirmPassword" type="password" formControlName="confirmPassword" />
+      <div class="error" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordMismatch')" >
+        Les mots de passes ne correspondent pas
+      </div>
+    </div>
+
     <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
     <p>Déjà insrit ?
-      <a routerLink="/login">Se connecter</a>
+      <a routerLink="/login">S'inscrire</a>
     </p>
   </form>

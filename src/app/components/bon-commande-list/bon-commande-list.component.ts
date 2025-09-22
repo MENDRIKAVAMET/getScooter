@@ -40,6 +40,7 @@ export class BonCommandeListComponent implements OnInit {
   /** Quand on clique sur "Modifier" */
   editBon(bon: BonCommande): void {
     this.selectedBon = { ...bon };
+    this.toggleForm();
   }
 
   /** Supprimer une commande entière */
