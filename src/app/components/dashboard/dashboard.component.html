@@ -65,27 +65,8 @@
                             <p class="text-muted">Aucune donnée disponible pour le graphique</p>
                         </div>
 
-                        <div class="professional-bars" *ngIf="stats && stats.length > 0">
-                            <div class="bars-grid">
-                                <div class="grid-line" *ngFor="let tick of yAxisTicks; let i = index"></div>
-                            </div>
-
-                            <div class="bars-container">
-                                <div class="bar-item" *ngFor="let v of stats; let i = index">
-                                    <div class="bar-value" *ngIf="v > 0">{{v}}</div>
-                                    <div class="bar-wrapper">
-                                        <div class="bar" [style.height]="(v / maxValue) * 100 + '%'"
-                                            [attr.title]="'Mois ' + (i+1) + ': ' + v +' commande(s)'">
-                                            <div class="bar-fill"></div>
-                                        </div>
-                                    </div>
-                                    <div class="bar-label">{{ getMonthName(i) }}</div>
-                                </div>
-                            </div>
-
-                            <div class="y-axis">
-                                <span *ngFor="let tick of yAxisTicks">{{ tick }}</span>
-                            </div>
+                        <div *ngIf="stats && stats.length > 0">
+                          <canvas baseChart [data]="barChartData" [options]="barChartOptions" chartType="bar"></canvas>
                         </div>
                     </div>
                 </div>

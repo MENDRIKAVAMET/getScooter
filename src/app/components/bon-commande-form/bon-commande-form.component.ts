@@ -52,9 +52,9 @@ export class BonCommandeFormComponent implements OnInit, OnChanges {
     this.bonForm = this.fb.group({
       id_client: [null, Validators.required],
       ref_scooter: [null, Validators.required],
-      quantite_cmd: [1, [Validators.required, Validators.min(1)]],
+      quantite_cmd: [1, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]*$')]],
       date_cmd: [new Date().toISOString().substring(0, 10), Validators.required],
-      remise: [0, [Validators.required, Validators.min(0), Validators.max(100)]],  // % modifiable
+      remise: [0, [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('^[0-9]*$')]],  // % modifiable
       prix_unitaire: [{ value: 0, disabled: true }],
       total_ht: [{ value: 0, disabled: true }],
       tva: [{ value: 20, disabled: true }],  // % fixe

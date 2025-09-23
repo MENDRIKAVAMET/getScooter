@@ -37,6 +37,9 @@
   <div class="mb-3">
     <label for="quantite_cmd" class="form-label">Quantité</label>
     <input id="quantite_cmd" type="number" formControlName="quantite_cmd" class="form-control" min="1" />
+      <div *ngIf="bonForm.get('quantite_cmd')?.invalid && bonForm.get('quantite_cmd')?.touched" class="text-danger">
+        Quantité invalide
+      </div>
   </div>
 
   <!-- === Date Commande === -->
@@ -49,6 +52,9 @@
   <div class="mb-3">
     <label for="remise" class="form-label">Remise (EUR)</label>
     <input id="remise" type="number" formControlName="remise" class="form-control" step="0.01" min="0" />
+      <div *ngIf="bonForm.get('remise')?.invalid && bonForm.get('remise')?.touched" class="text-danger">
+        Remise invalide
+      </div>
   </div>
 
   <hr />

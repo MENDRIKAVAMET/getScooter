@@ -23,12 +23,18 @@
     <div class="col-md-3">
       <label for="prix" class="form-label">Prix (€)</label>
       <input id="prix" type="number" formControlName="prix" class="form-control" placeholder="Prix" />
+      <div *ngIf="scooterForm.get('prix')?.invalid && scooterForm.get('prix')?.touched" class="text-danger">
+            Prix invalide
+      </div>
     </div>
 
     <div class="col-md-3">
       <label for="quantite_stock" class="form-label">Quantité</label>
       <input id="quantite_stock" type="number" formControlName="quantite_stock" class="form-control"
         placeholder="Quantité" />
+      <div *ngIf="scooterForm.get('quantite_stock')?.invalid && scooterForm.get('quantite_stock')?.touched" class="text-danger">
+            Quantité invalide
+          </div>
     </div>
   </div>
 

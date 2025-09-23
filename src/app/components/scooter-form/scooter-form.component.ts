@@ -37,8 +37,8 @@ export class ScooterFormComponent implements OnChanges {
       ref_scooter: ['', Validators.required],
       marque: ['', Validators.required],
       modele: ['', Validators.required],
-      prix: [0, [Validators.required, Validators.min(0)]],
-      quantite_stock: [0, [Validators.required, Validators.min(0)]]
+      prix: [0, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]*$')]],
+      quantite_stock: [1, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]*$')]]
     });
   }
 

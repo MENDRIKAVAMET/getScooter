@@ -8,30 +8,48 @@
         <div class="col-md-6">
             <label for="nom" class="form-label">Nom</label>
             <input type="text" formControlName="nom" placeholder="Nom" class="form-control" />
+            <div class="text-danger" *ngIf="clientForm.get('nom')?.hasError('pattern') && clientForm.get('nom')?.touched">
+              Seules les lettres et espaces sont autorisés
+            </div>
         </div>
         <div class="col-md-6">
             <label for="prenom" class="form-label">Prénom</label>
             <input type="text" formControlName="prenom" placeholder="Prénom" class="form-control" />
+            <div class="text-danger" *ngIf="clientForm.get('prenom')?.hasError('pattern') && clientForm.get('prenom')?.touched">
+              Seules les lettres et espaces sont autorisés
+            </div>
         </div>
 
         <div class="col-md-6">
             <label for="phone" class="form-label">Téléphone</label>
-            <input type="text" formControlName="phone" placeholder="Téléphone" class="form-control" />
+            <input type="text" formControlName="phone" placeholder="Téléphone" class="form-control" maxlength="10"/>
+            <div class="text-danger" *ngIf="clientForm.get('phone')?.invalid && clientForm.get('phone')?.touched">
+              Téléphone invalide
+            </div>
         </div>
 
         <div class="col-md-6">
             <label for="cin" class="form-label">CIN</label>
-            <input type="text" formControlName="cin" placeholder="CIN" class="form-control" />
+            <input type="text" formControlName="cin" placeholder="CIN" class="form-control" maxlength="12"/>
+            <div  class="text-danger" *ngIf="clientForm.get('cin')?.invalid && clientForm.get('cin')?.touched">
+              CIN invalide
+            </div>
         </div>
 
         <div class="col-md-6">
             <label for="pays" class="form-label">Pays</label>
             <input type="text" formControlName="pays" placeholder="Pays" class="form-control" />
+            <div  class="text-danger" *ngIf="clientForm.get('pays')?.hasError('pattern') && clientForm.get('pays')?.touched">
+              Seules les lettres et espaces sont autorisés
+            </div>
         </div>
 
         <div class="col-md-6">
             <label for="ville" class="form-label"></label>
             <input type="text" formControlName="ville" placeholder="Ville" class="form-control" />
+            <div class="text-danger" *ngIf="clientForm.get('ville')?.hasError('pattern') && clientForm.get('ville')?.touched">
+              Seules les lettres et espaces sont autorisés
+            </div>
         </div>
 
         <div class="col-md-6">

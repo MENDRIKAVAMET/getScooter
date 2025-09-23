@@ -18,12 +18,12 @@ export class ClientFormComponent implements OnChanges{
 
   constructor(private fb: FormBuilder, private clientService: ClientService) {
     this.clientForm = this.fb.group({
-      nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      phone: ['', Validators.required],
-      cin: ['', Validators.required],
-      pays: ['', Validators.required],
-      ville: ['', Validators.required],
+      nom: ['', Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')],
+      prenom: ['', Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')],
+      phone: ['', Validators.required, Validators.pattern('^[0-9]*$')],
+      cin: ['', Validators.required, Validators.pattern('^[0-9]*$')],
+      pays: ['', Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')],
+      ville: ['', Validators.required, Validators.pattern('^[a-zA-Z\\s]+$')],
       date_naiss: ['', Validators.required],
     });
   }
